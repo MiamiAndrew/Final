@@ -86,6 +86,7 @@ pipeline {
 
         stage('Deploy to Prod Environment') {
             steps {
+                script {
                 // Set up Kubernetes configuration using the specified KUBECONFIG
                  def kubeConfig = readFile(KUBECONFIG)
                 //sh "ls -la"
@@ -93,6 +94,7 @@ pipeline {
                 sh "cd .."
                 sh "kubect1 apply -f deployment-prod.yaml"
             }
+        }
         }
         
     stage("Remove Test Data") {
