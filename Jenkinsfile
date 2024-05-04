@@ -71,7 +71,30 @@ pipeline {
                 }
             }
         }
-        
+
+        stage ("Run Security Checks") {
+            steps {
+                sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
+                sh '''
+                    docker run --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
+                    -e BURP_START_URL=http://10.48.10.189 \
+                    -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
+                    public.ecr.aws/portswigger/dastardly:latest
+                '''
+            }
+        }
+
+        stage('Deploy to Prod Environment') {
+            steps {
+                // Set up Kubernetes configuration using the specified KUBECONFIG
+                 def kubeConfig = readFile(KUBECONFIG)
+                //sh "ls -la"
+                sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-prod.yaml
+                sh "cd .."
+                sh "kubect1 apply -f deployment-prod.yaml"
+            }
+        }
+    }
         stage('Remove Test Data') {
             steps {
                 script {
