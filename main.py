@@ -58,7 +58,7 @@ def index():
             <title>Contacts</title>
         </head>
         <body>
-            <h2>Add Contact</h2>
+            <h2>Congratulations! You've made it to the end of your final project. All you need to do is add your name and phone number to the table and you're all set! Thank you for a great semester!</h2>
             <form method="POST" action="/">
                 <label for="name">Name:</label><br>
                 <input type="text" id="name" name="name" required><br>
