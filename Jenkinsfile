@@ -95,7 +95,8 @@ pipeline {
             }
         }
     }
-        stage('Remove Test Data') {
+        
+    stage('Remove Test Data') {
             steps {
                 script {
                     // Run the python script to generate data to add to the database
