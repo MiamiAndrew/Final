@@ -94,7 +94,6 @@ pipeline {
                 sh "kubect1 apply -f deployment-prod.yaml"
             }
         }
-    }
         
     stage("Remove Test Data") {
             steps {
