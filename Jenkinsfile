@@ -89,7 +89,7 @@ pipeline {
                 // Set up Kubernetes configuration using the specified KUBECONFIG
                  def kubeConfig = readFile(KUBECONFIG)
                 //sh "ls -la"
-                sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${GE_TAG}|' deployment-prod.yaml
+                sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${GET_TAG}|' deployment-prod.yaml
                 sh "cd .."
                 sh "kubect1 apply -f deployment-prod.yaml"
             }
